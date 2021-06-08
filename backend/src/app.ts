@@ -4,9 +4,11 @@ import 'reflect-metadata';
 import { AppError } from './errors/AppError';
 import './database/connection';
 import routes from './routes';
+import cors from 'cors';
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(routes);
 
