@@ -3,9 +3,9 @@ const form = document.querySelector('form');
 document.querySelector('.botao').addEventListener('click', async (e) => {
   e.preventDefault();
 
-  const data = new FormData(form);
+  const formData = new FormData(form);
 
-  const user = getUserData(data);
+  const data = getUserData(formData);
 
   const respose = await fetch('http://localhost:3333/users', {
     method: 'POST',
@@ -14,8 +14,10 @@ document.querySelector('.botao').addEventListener('click', async (e) => {
     },
     body: JSON.stringify(user)
   }).catch(err => console.log(err));
+    
+  const user = await respose.json();
 
-  console.log(await respose.json());
+  console.table(user);
 });
 
 function getUserData(data) {
