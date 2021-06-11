@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import * as yup from 'yup';
 import { AppError } from "../errors/AppError";
 import UsersRepository from "../repositories/UsersRepository";
 
 class VerificationUser {
-  async verify(req: Request, res: Response) {
+  async verify(req: Request, res: Response, next: NextFunction) {
     const { email } = req.body;
 
     const schema = yup.object().shape({
@@ -31,6 +31,8 @@ class VerificationUser {
     if (isUserAlreadyExists) {
       throw new AppError('User Already Exists!');
     }
+
+    next();
   }
 }
 
