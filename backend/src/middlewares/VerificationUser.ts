@@ -6,6 +6,8 @@ import UsersRepository from "../repositories/UsersRepository";
 
 class VerificationUser {
   async verify(req: Request, res: Response) {
+    const { email } = req.body;
+
     const schema = yup.object().shape({
       name: yup.string().required(),
       last_name: yup.string().required(),
@@ -24,7 +26,7 @@ class VerificationUser {
 
     const repository = getCustomRepository(UsersRepository);
 
-    const isUserAlreadyExists = await repository.findOne({ where: { email: req.body.email } });
+    const isUserAlreadyExists = await repository.findOne({ where: { email } });
 
     if (isUserAlreadyExists) {
       throw new AppError('User Already Exists!');
