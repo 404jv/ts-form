@@ -12,7 +12,7 @@ document.querySelector('.botao').addEventListener('click', async (e) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(user)
+    body: JSON.stringify(data)
   }).catch(err => console.log(err));
     
   const user = await respose.json();
